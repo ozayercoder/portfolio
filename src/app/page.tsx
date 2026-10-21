@@ -12,6 +12,7 @@ export default function Home() {
     <>
       <Navbar />
       <main className="flex-1">
+        {/* All component  */}
         <Hero />
         <About />
         <Skills />
