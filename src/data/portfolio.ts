@@ -19,7 +19,7 @@ export const siteConfig = {
   location: "Cumilla, Bangladesh",
   timezone: "GMT+6",
   // TODO: Set this to your deployed site URL (used for SEO / sitemap)
-  siteUrl: "https://ozayer.dev",
+  siteUrl: "https://ozayer-portfolio.vercel.app",
   // TODO: Link your actual résumé PDF (e.g. drop it in /public)
   resumeUrl:
     "https://drive.google.com/file/d/1WpvYobA2ZvF36yPcWHYpcej-1u9Hreem/view?usp=sharing",

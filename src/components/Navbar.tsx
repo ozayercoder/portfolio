@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { mailtoHref, navLinks, siteConfig } from "@/data/portfolio";
+import { gmailComposeHref, navLinks, siteConfig } from "@/data/portfolio";
 import { CloseIcon, MenuIcon } from "./Icons";
 import logo from "@/assets/Ozayer-removebg-preview.png";
 
@@ -43,9 +43,7 @@ export function Navbar() {
   const linkClass = (id: string) =>
     [
       "relative transition-colors duration-200",
-      active === id
-        ? "text-zinc-50"
-        : "text-zinc-400 hover:text-zinc-100",
+      active === id ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-100",
     ].join(" ");
 
   return (
@@ -96,7 +94,7 @@ export function Navbar() {
             </a>
           ))}
           <a
-            href={mailtoHref}
+            href={gmailComposeHref}
             className="rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-200 transition hover:bg-violet-500/20 hover:text-zinc-50"
           >
             Hire me
@@ -112,7 +110,11 @@ export function Navbar() {
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <CloseIcon className="size-6" /> : <MenuIcon className="size-6" />}
+          {open ? (
+            <CloseIcon className="size-6" />
+          ) : (
+            <MenuIcon className="size-6" />
+          )}
         </button>
       </nav>
 
@@ -139,7 +141,7 @@ export function Navbar() {
             </a>
           ))}
           <a
-            href={mailtoHref}
+            href={gmailComposeHref}
             onClick={() => setOpen(false)}
             className="mt-2 rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2.5 text-center text-sm font-medium text-violet-200 transition hover:bg-violet-500/20 hover:text-zinc-50"
           >
