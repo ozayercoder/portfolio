@@ -11,7 +11,7 @@ export const siteConfig = {
   tagline: "I build fast, polished products for the web.",
   // Used for SEO / social cards
   description:
-    "Ozayer — Full-Stack Developer crafting fast, accessible web apps with React, Next.js, Node.js and TypeScript. Explore my projects, skills and experience.",
+    "Ozayer — Full-Stack Developer crafting fast, accessible web apps with React, Next.js, Node.js, JavaScript and TypeScript. Explore my projects, skills and experience.",
   // Used by every mail action on the site — press "copy" in the contact
   // section to confirm it looks right before deploying.
   email: "ozayer212714@gmail.com",
