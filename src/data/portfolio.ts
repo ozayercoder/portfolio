@@ -4,6 +4,15 @@
 //  them for your real information.
 // ─────────────────────────────────────────────────────────────
 
+import type { StaticImageData } from "next/image";
+
+// Static imports of the project screenshots in /src/assets —
+// Next.js injects width / height / blur placeholder automatically.
+import banglaNewsPic from "@/assets/bangla-news-pic.png";
+import bazarDorPic from "@/assets/bazar-dor-pic.png";
+import fitLogPic from "@/assets/fit-log-pic.png";
+import bplDreamPic from "@/assets/bpl-dream-pic.png";
+
 export const siteConfig = {
   name: "Ozayer",
   role: "Full-Stack Developer",
@@ -139,6 +148,8 @@ export type Project = {
   subtitle: string;
   description: string;
   tags: string[];
+  /** Screenshot imported from /src/assets, shown in the Projects section. */
+  image: StaticImageData;
   // TODO: Replace "#" with real repository / live links
   github: string;
   demo: string;
@@ -152,6 +163,7 @@ export const projects: Project[] = [
     description:
       "A modern Bangla news platform delivering category-based news through a clean interface, seamless navigation, and a reader-first experience.",
     tags: ["Next.js", "TypeScript", "Better Auth", "MongoDB"],
+    image: banglaNewsPic,
     github: "https://github.com/ozayercoder/Bangla-News-24",
     demo: "https://bangla-news-24-opal.vercel.app",
   },
@@ -161,6 +173,7 @@ export const projects: Project[] = [
     description:
       "A Bangla market-price platform helping users track daily commodity prices, compare market rates, and spot rising and falling prices with ease.",
     tags: ["Next.js", "TypeScript", "Better Auth", "MongoDB"],
+    image: bazarDorPic,
     github: "https://github.com/ozayercoder/Assignmetn-7",
     demo: "https://bazar-dor-ozayer.vercel.app",
   },
@@ -170,6 +183,7 @@ export const projects: Project[] = [
     description:
       "A dynamic workout library to explore exercises, plan daily workouts, track completed sessions, and save favorite routines.",
     tags: ["Next.js", "TypeScript", "React"],
+    image: fitLogPic,
     github: "https://github.com/ozayercoder/Assignment-6-fit-log",
     demo: "https://assignment-6-fit-log-two.vercel.app/",
   },
@@ -179,6 +193,7 @@ export const projects: Project[] = [
     description:
       "A BPL fantasy cricket platform where users explore players, build their dream teams, and manage player selections within a virtual budget.",
     tags: ["Next.js", "TypeScript"],
+    image: bplDreamPic,
     github: "https://github.com/ozayercoder/BPL-Dream-11",
     demo: "https://1st-bpl-dream.netlify.app",
   },

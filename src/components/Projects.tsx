@@ -1,7 +1,92 @@
+import Image from "next/image";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-import { ArrowUpRightIcon, FolderIcon, GitHubIcon } from "./Icons";
-import { projects } from "@/data/portfolio";
+import { ArrowUpRightIcon, GitHubIcon } from "./Icons";
+import { projects, socials, type Project } from "@/data/portfolio";
+
+// Reuse the GitHub profile already defined in the data file.
+const githubProfileUrl = socials.find(
+  (social) => social.icon === "github",
+)?.url;
+
+/** GitHub / live-demo buttons shared by every project card. */
+function ProjectLinks({ project }: { project: Project }) {
+  return (
+    <div className="flex shrink-0 items-center gap-1">
+      {project.github && (
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${project.title} on GitHub`}
+          className="rounded-lg p-2 text-zinc-400 transition hover:bg-white/5 hover:text-zinc-100"
+        >
+          <GitHubIcon className="size-4.5" />
+        </a>
+      )}
+      {project.demo && (
+        <a
+          href={project.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${project.title} live demo`}
+          className="rounded-lg p-2 text-zinc-400 transition hover:bg-white/5 hover:text-zinc-100"
+        >
+          <ArrowUpRightIcon className="size-4.5" />
+        </a>
+      )}
+    </div>
+  );
+}
+
+/** Standard card — screenshot on top, details below. */
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  return (
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/8 bg-white/3 transition duration-300 hover:border-violet-400/30 hover:bg-white/5">
+      {/* Screenshot */}
+      <div className="relative aspect-[1.94] w-full overflow-hidden border-b border-white/8 bg-[#0b0d1a]">
+        <Image
+          src={project.image}
+          alt={`Screenshot of the ${project.title} project`}
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          placeholder="blur"
+          className="object-cover transition duration-700 ease-out group-hover:scale-[1.05]"
+        />
+      </div>
+
+      {/* Details */}
+      <div className="flex flex-1 flex-col p-6">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <span className="font-mono text-xs tracking-widest text-zinc-500">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <ProjectLinks project={project} />
+        </div>
+
+        <h3 className="font-display text-xl font-semibold text-zinc-50">
+          {project.title}
+          <span className="mx-2 text-zinc-600" aria-hidden>
+            /
+          </span>
+          <span className="text-base font-normal text-zinc-400">
+            {project.subtitle}
+          </span>
+        </h3>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">
+          {project.description}
+        </p>
+        <ul className="mt-5 flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <li key={tag} className="chip font-mono text-[0.7rem]">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
+}
 
 export function Projects() {
   return (
@@ -16,61 +101,7 @@ export function Projects() {
         <div className="grid gap-6 md:grid-cols-2">
           {projects.map((project, i) => (
             <Reveal key={project.title} delay={(i % 2) * 120}>
-              <article className="card group relative flex h-full flex-col transition duration-300 hover:border-violet-400/30 hover:bg-white/5">
-                <div className="mb-6 flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="rounded-lg border border-white/10 bg-white/5 p-2.5 text-violet-300 transition group-hover:text-violet-200">
-                      <FolderIcon className="size-5" />
-                    </span>
-                    <span className="font-mono text-xs tracking-widest text-zinc-500">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${project.title} on GitHub`}
-                        className="rounded-lg p-2 text-zinc-400 transition hover:bg-white/5 hover:text-zinc-100"
-                      >
-                        <GitHubIcon className="size-4.5" />
-                      </a>
-                    )}
-                    {project.demo && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${project.title} live demo`}
-                        className="rounded-lg p-2 text-zinc-400 transition hover:bg-white/5 hover:text-zinc-100"
-                      >
-                        <ArrowUpRightIcon className="size-4.5" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                <h3 className="font-display text-xl font-semibold text-zinc-50">
-                  {project.title}
-                  <span className="mx-2 text-zinc-600" aria-hidden>/</span>
-                  <span className="text-base font-normal text-zinc-400">
-                    {project.subtitle}
-                  </span>
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">
-                  {project.description}
-                </p>
-                <ul className="mt-5 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <li key={tag} className="chip font-mono text-[0.7rem]">
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </article>
+              <ProjectCard project={project} index={i} />
             </Reveal>
           ))}
         </div>
@@ -78,8 +109,7 @@ export function Projects() {
         <Reveal delay={150}>
           <div className="mt-10 text-center">
             <a
-              // TODO: point this at your real GitHub profile
-              href="https://github.com"
+              href={githubProfileUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-ghost"
