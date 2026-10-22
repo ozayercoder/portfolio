@@ -30,21 +30,21 @@ export function Skills() {
             const Icon = groupIcons[group.name];
             return (
               <Reveal key={group.title} delay={i * 120}>
-                <article className="card group h-full">
-                  <div className="mb-5 flex size-11 items-center justify-center rounded-xl border border-violet-400/25 bg-violet-500/12 text-violet-300 transition group-hover:border-violet-400/50">
+                <article className="card skill-card group h-full">
+                  <div className="mb-5 flex size-11 items-center justify-center rounded-xl border border-violet-400/25 bg-violet-500/12 text-accent-bright transition group-hover:border-violet-400/50">
                     <Icon className="size-5.5" />
                   </div>
-                  <h3 className="font-display text-xl font-semibold text-zinc-50">
+                  <h3 className="font-display text-xl font-semibold text-ink">
                     {group.title}
                   </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">
                     {group.blurb}
                   </p>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {group.skills.map((skill) => (
                       <li
                         key={skill}
-                        className="chip transition hover:border-violet-400/40 hover:text-violet-200"
+                        className="chip transition hover:border-violet-400/40 hover:text-accent-bright"
                       >
                         {skill}
                       </li>

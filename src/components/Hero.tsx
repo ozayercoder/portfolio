@@ -42,21 +42,21 @@ export function Hero() {
         {/* Left: Introduction */}
         <div className="order-1 min-w-0">
           <Reveal>
-            <p className="font-mono text-sm tracking-widest text-violet-300/90 uppercase">
+            <p className="font-mono text-sm tracking-widest text-accent-bright/90 uppercase">
               {"// "}
               {siteConfig.role}
             </p>
           </Reveal>
 
           <Reveal delay={100}>
-            <h1 className="font-display mt-4 text-4xl font-bold tracking-tight text-zinc-50 sm:text-6xl lg:text-7xl">
+            <h1 className="font-display mt-4 text-4xl font-bold tracking-tight text-ink sm:text-6xl lg:text-7xl">
               Hi, I&apos;m {siteConfig.name}{" "}
               <span className="text-gradient">{siteConfig.tagline}</span>
             </h1>
           </Reveal>
 
           <Reveal delay={200}>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 md:text-lg">
+            <p className="mt-6 max-w-xl  leading-relaxed text-ink-mid md:text-lg">
               I design and build complete web products — from pixel-perfect
               front ends in React &amp; Next.js to dependable APIs in Node.
               Currently looking for a team where I can ship, learn, and grow.
@@ -87,7 +87,7 @@ export function Hero() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.name}
-                        className="rounded-full border border-white/10 p-2.5 text-zinc-400 transition hover:border-violet-400/40 hover:text-violet-300"
+                        className="rounded-full border border-line-strong p-2.5 text-ink-mid transition hover:border-violet-400/40 hover:text-accent-bright"
                       >
                         <Icon className="size-4.5" />
                       </a>
@@ -98,7 +98,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={400}>
-            <p className="font-mono mt-10 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs tracking-wider text-zinc-500 uppercase">
+            <p className="font-mono mt-10 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs tracking-wider text-ink-muted uppercase">
               {heroTech.map((tech, index) => (
                 <span key={tech} className="flex items-center gap-2">
                   {index > 0 && (
@@ -121,7 +121,7 @@ export function Hero() {
           {/* Open to work badge */}
           <div
             aria-hidden
-            className="animate-float absolute -top-4 -right-2 z-10 rounded-xl border border-white/10 bg-[#0b0d1a]/90 px-3.5 py-2 font-mono text-xs text-zinc-300 shadow-lg backdrop-blur"
+            className="animate-float absolute -top-4 -right-2 z-10 rounded-xl border border-line-strong bg-surface-glass px-3.5 py-2 font-mono text-xs text-ink-soft shadow-lg backdrop-blur"
           >
             <span className="text-emerald-400">●</span> Open to work
           </div>
@@ -139,14 +139,14 @@ export function Hero() {
               width={1024}
               height={1024}
               priority
-              className="relative h-auto w-full rounded-2xl border border-white/10 shadow-2xl shadow-violet-950/40"
+              className="relative h-auto w-full rounded-2xl border border-line-strong shadow-2xl shadow-violet-950/40"
             />
           </div>
 
           {/* Location badge */}
           <div
             aria-hidden
-            className="animate-float-delayed absolute -bottom-4 left-2 flex items-center gap-2 rounded-xl border border-white/10 bg-[#0b0d1a]/90 px-3.5 py-2 font-mono text-xs text-zinc-300 shadow-lg backdrop-blur"
+            className="animate-float-delayed absolute -bottom-4 left-2 flex items-center gap-2 rounded-xl border border-line-strong bg-surface-glass px-3.5 py-2 font-mono text-xs text-ink-soft shadow-lg backdrop-blur"
           >
             <MapPinIcon className="size-3.5 text-violet-400" />
             {siteConfig.location}

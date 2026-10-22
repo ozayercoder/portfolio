@@ -19,7 +19,7 @@ function ProjectLinks({ project }: { project: Project }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${project.title} on GitHub`}
-          className="rounded-lg p-2 text-zinc-400 transition hover:bg-white/5 hover:text-zinc-100"
+          className="rounded-lg p-2 text-ink-mid transition hover:bg-overlay hover:text-ink"
         >
           <GitHubIcon className="size-4.5" />
         </a>
@@ -30,7 +30,7 @@ function ProjectLinks({ project }: { project: Project }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${project.title} live demo`}
-          className="rounded-lg p-2 text-zinc-400 transition hover:bg-white/5 hover:text-zinc-100"
+          className="rounded-lg p-2 text-ink-mid transition hover:bg-overlay hover:text-ink"
         >
           <ArrowUpRightIcon className="size-4.5" />
         </a>
@@ -42,9 +42,9 @@ function ProjectLinks({ project }: { project: Project }) {
 /** Standard card — screenshot on top, details below. */
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/8 bg-white/3 transition duration-300 hover:border-violet-400/30 hover:bg-white/5">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-overlay-soft transition duration-300 hover:border-violet-400/30 hover:bg-overlay">
       {/* Screenshot */}
-      <div className="relative aspect-[1.94] w-full overflow-hidden border-b border-white/8 bg-[#0b0d1a]">
+      <div className="relative aspect-[1.94] w-full overflow-hidden border-b border-line bg-surface">
         <Image
           src={project.image}
           alt={`Screenshot of the ${project.title} project`}
@@ -58,22 +58,22 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       {/* Details */}
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-4 flex items-center justify-between gap-3">
-          <span className="font-mono text-xs tracking-widest text-zinc-500">
+          <span className="font-mono text-xs tracking-widest text-ink-muted">
             {String(index + 1).padStart(2, "0")}
           </span>
           <ProjectLinks project={project} />
         </div>
 
-        <h3 className="font-display text-xl font-semibold text-zinc-50">
+        <h3 className="font-display text-xl font-semibold text-ink">
           {project.title}
-          <span className="mx-2 text-zinc-600" aria-hidden>
+          <span className="mx-2 text-ink-faint" aria-hidden>
             /
           </span>
-          <span className="text-base font-normal text-zinc-400">
+          <span className=" font-normal text-ink-mid">
             {project.subtitle}
           </span>
         </h3>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-mid">
           {project.description}
         </p>
         <ul className="mt-5 flex flex-wrap gap-2">

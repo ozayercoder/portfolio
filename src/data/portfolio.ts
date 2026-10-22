@@ -223,4 +223,15 @@ export const experience: ExperienceItem[] = [
     ],
     tags: ["Next.js", "TypeScript", "MongoDB", "JavaScript"],
   },
+  {
+    type: "education",
+    period: "2025 — 2027",
+    role: "Higher Secondary Certificate (HSC)",
+    org: "Cumilla Government College",
+    points: [
+      "Studying Science with a focus on Physics, Chemistry, Higher Mathematics, Biology, and ICT.",
+      "Building a strong foundation in analytical thinking, problem-solving, and technology.",
+    ],
+    tags: ["Science", "Physics", "Chemistry", "Higher Mathematics", "ICT"],
+  },
 ];

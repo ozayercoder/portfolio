@@ -10,14 +10,14 @@ type SectionHeadingProps = {
 export function SectionHeading({ index, title, description }: SectionHeadingProps) {
   return (
     <Reveal className="mb-12 md:mb-16">
-      <p className="font-mono text-sm tracking-widest text-violet-300/90 uppercase">
+      <p className="font-mono text-sm tracking-widest text-accent-bright/90 uppercase">
         {`${index} //`}
       </p>
-      <h2 className="font-display mt-3 text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl md:text-5xl">
+      <h2 className="font-display mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl md:text-5xl">
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400 md:text-lg">
+        <p className="mt-4 max-w-2xl  leading-relaxed text-ink-mid md:text-lg">
           {description}
         </p>
       ) : null}

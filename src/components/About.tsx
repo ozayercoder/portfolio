@@ -9,7 +9,12 @@ import {
   MonitorIcon,
   ServerIcon,
 } from "./Icons";
-import { aboutParagraphs, mailtoHref, siteConfig, stats } from "@/data/portfolio";
+import {
+  aboutParagraphs,
+  mailtoHref,
+  siteConfig,
+  stats,
+} from "@/data/portfolio";
 import profilePhoto from "@/assets/hero-pic.png";
 
 type QuickFact = {
@@ -48,7 +53,7 @@ export function About() {
         <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           {/* Photo card */}
           <Reveal className="relative mx-auto w-full max-w-md">
-            <div className="rounded-3xl bg-linear-to-b from-violet-400/40 via-white/8 to-sky-400/30 p-1">
+            <div className="rounded-3xl bg-linear-to-b from-violet-400/40 via-line to-sky-400/30 p-1">
               <Image
                 src={profilePhoto}
                 alt={`Professional photo of ${siteConfig.name}`}
@@ -56,7 +61,7 @@ export function About() {
                 placeholder="blur"
               />
             </div>
-            <p className="font-mono mt-4 text-center text-xs tracking-widest text-zinc-500 uppercase">
+            <p className="font-mono mt-4 text-center text-xs tracking-widest text-ink-muted uppercase">
               Software Engineer · {siteConfig.name}
             </p>
           </Reveal>
@@ -66,7 +71,7 @@ export function About() {
             <div className="bio">
               {aboutParagraphs.map((paragraph, i) => (
                 <Reveal key={i} delay={i * 100}>
-                  <p className="mb-4 text-base leading-relaxed text-zinc-400 md:text-[1.05rem]">
+                  <p className="mb-4  leading-relaxed text-ink-mid md:text-[1.05rem]">
                     {paragraph}
                   </p>
                 </Reveal>
@@ -77,18 +82,18 @@ export function About() {
               <dl className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
                 {quickFacts.map((fact) => (
                   <div key={fact.label} className="flex items-start gap-3">
-                    <span className="mt-0.5 rounded-lg border border-white/10 bg-white/5 p-2 text-violet-300">
+                    <span className="mt-0.5 rounded-lg border border-line-strong bg-overlay p-2 text-accent-bright">
                       <fact.icon className="size-4" />
                     </span>
                     <div>
-                      <dt className="font-mono text-[0.65rem] tracking-widest text-zinc-500 uppercase">
+                      <dt className="font-mono text-[0.65rem] tracking-widest text-ink-muted uppercase">
                         {fact.label}
                       </dt>
-                      <dd className="mt-0.5 text-sm text-zinc-300">
+                      <dd className="mt-0.5 text-sm text-ink-soft">
                         {fact.href ? (
                           <a
                             href={fact.href}
-                            className="transition-colors hover:text-violet-300"
+                            className="transition-colors hover:text-accent-bright"
                           >
                             {fact.value}
                           </a>
@@ -104,7 +109,12 @@ export function About() {
 
             <Reveal delay={300}>
               <div className="mt-8 flex flex-wrap gap-4">
-                <a href={siteConfig.resumeUrl} className="btn-primary" target="_blank" download>
+                <a
+                  href={siteConfig.resumeUrl}
+                  className="btn-primary"
+                  target="_blank"
+                  download
+                >
                   <DownloadIcon className="size-4" />
                   Download résumé
                 </a>
@@ -126,7 +136,7 @@ export function About() {
                 <dd className="font-display text-gradient text-3xl font-bold md:text-4xl">
                   {stat.value}
                 </dd>
-                <dd className="mt-2 text-sm text-zinc-400">{stat.label}</dd>
+                <dd className="mt-2 text-sm text-ink-mid">{stat.label}</dd>
               </div>
             </Reveal>
           ))}

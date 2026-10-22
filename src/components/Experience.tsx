@@ -12,40 +12,40 @@ export function Experience() {
           description="Where I've worked, studied, and picked up the fundamentals."
         />
 
-        <ol className="relative space-y-10 border-l border-white/10 pl-7 md:pl-9">
+        <ol className="relative space-y-10 border-l border-line-strong pl-7 md:pl-9">
           {experience.map((item, i) => (
             <li key={item.role} className="relative">
               {/* timeline node */}
               <span
                 aria-hidden
-                className={`absolute top-1.5 -left-7.25size-3 rounded-full border-2 border-[#05060d] md:-left-9.25 ${
+                className={`absolute top-1.5 -left-7.25 size-3 rounded-full border-2 border-base md:-left-9.25 ${
                   i === 0
                     ? "bg-violet-400 shadow-[0_0_12px_rgba(167,139,250,0.7)]"
-                    : "bg-zinc-600"
+                    : "bg-ink-faint"
                 }`}
               />
               <Reveal delay={i * 120}>
-                <p className="font-mono text-xs tracking-widest text-zinc-500 uppercase">
+                <p className="font-mono text-xs tracking-widest text-ink-muted uppercase">
                   {item.period}
                   <span
                     className={`ml-3 rounded-full px-2 py-0.5 text-[0.65rem] tracking-wider ${
                       item.type === "work"
-                        ? "bg-violet-500/15 text-violet-300"
-                        : "bg-sky-500/15 text-sky-300"
+                        ? "bg-violet-500/15 text-accent-bright"
+                        : "bg-sky-500/15 text-info"
                     }`}
                   >
                     {item.type === "work" ? "Work" : "Education"}
                   </span>
                 </p>
-                <h3 className="font-display mt-2 text-lg font-semibold text-zinc-50 md:text-xl">
+                <h3 className="font-display mt-2 text-lg font-semibold text-ink md:text-xl">
                   {item.role}
                 </h3>
-                <p className="mt-0.5 text-sm text-zinc-400">{item.org}</p>
+                <p className="mt-0.5 text-sm text-ink-mid">{item.org}</p>
                 <ul className="mt-3 space-y-2">
                   {item.points.map((point) => (
                     <li
                       key={point}
-                      className="flex gap-2.5 text-sm leading-relaxed text-zinc-500"
+                      className="flex gap-2.5 text-sm leading-relaxed text-ink-muted"
                     >
                       <span
                         aria-hidden

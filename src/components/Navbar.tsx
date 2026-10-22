@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { gmailComposeHref, navLinks, siteConfig } from "@/data/portfolio";
 import { CloseIcon, MenuIcon } from "./Icons";
+import { ThemeToggle } from "./ThemeToggle";
 import logo from "@/assets/Ozayer-removebg-preview.png";
 
 export function Navbar() {
@@ -43,14 +44,14 @@ export function Navbar() {
   const linkClass = (id: string) =>
     [
       "relative transition-colors duration-200",
-      active === id ? "text-zinc-50" : "text-zinc-400 hover:text-zinc-100",
+      active === id ? "text-ink" : "text-ink-mid hover:text-ink",
     ].join(" ");
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
         scrolled || open
-          ? "border-white/5 bg-[#05060d]/85 backdrop-blur-md"
+          ? "border-line-soft bg-navbar backdrop-blur-md"
           : "border-transparent bg-transparent"
       }`}
     >
@@ -65,14 +66,12 @@ export function Navbar() {
             alt=""
             width={28}
             height={28}
-            className="transition-transform duration-300 group-hover:rotate-6"
-            // The source logo is black-on-transparent; invert it for the dark theme
-            style={{ filter: "invert(1)" }}
+            className="logo-mark transition-transform duration-300 group-hover:rotate-6"
             priority
           />
-          <span className="font-display text-lg font-semibold tracking-tight text-zinc-50">
+          <span className="font-display text-lg font-semibold tracking-tight text-ink">
             {siteConfig.name}
-            <span className="text-violet-400">.</span>
+            <span className="text-accent">.</span>
           </span>
         </a>
 
@@ -95,35 +94,40 @@ export function Navbar() {
           ))}
           <a
             href={gmailComposeHref}
-            className="rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-200 transition hover:bg-violet-500/20 hover:text-zinc-50"
+            target="_blank"
+            className="rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2 text-sm font-medium text-accent-bright transition hover:bg-violet-500/20 hover:text-ink"
           >
             Hire me
           </a>
+          <ThemeToggle />
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-lg p-2 text-zinc-300 transition hover:bg-white/5 hover:text-zinc-50 md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? (
-            <CloseIcon className="size-6" />
-          ) : (
-            <MenuIcon className="size-6" />
-          )}
-        </button>
+        {/* Mobile controls */}
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-lg p-2 text-ink-soft transition hover:bg-overlay hover:text-ink"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? (
+              <CloseIcon className="size-6" />
+            ) : (
+              <MenuIcon className="size-6" />
+            )}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       <div
         id="mobile-menu"
         className={`overflow-hidden md:hidden ${
-          open ? "max-h-96 border-b border-white/5" : "max-h-0"
-        } bg-[#05060d]/95 backdrop-blur-md transition-[max-height] duration-300 ease-out`}
+          open ? "max-h-96 border-b border-line-soft" : "max-h-0"
+        } bg-menu backdrop-blur-md transition-[max-height] duration-300 ease-out`}
       >
         <div className="container-site flex flex-col gap-1 py-4">
           {navLinks.map((link) => (
@@ -131,10 +135,8 @@ export function Navbar() {
               key={link.id}
               href={`#${link.id}`}
               onClick={() => setOpen(false)}
-              className={`rounded-lg px-3 py-2.5 text-base transition hover:bg-white/5 ${
-                active === link.id
-                  ? "text-zinc-50"
-                  : "text-zinc-400 hover:text-zinc-100"
+              className={`rounded-lg px-3 py-2.5 text-base transition hover:bg-overlay ${
+                active === link.id ? "text-ink" : "text-ink-mid hover:text-ink"
               }`}
             >
               {link.label}
@@ -142,8 +144,9 @@ export function Navbar() {
           ))}
           <a
             href={gmailComposeHref}
+            target="_blank"
             onClick={() => setOpen(false)}
-            className="mt-2 rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2.5 text-center text-sm font-medium text-violet-200 transition hover:bg-violet-500/20 hover:text-zinc-50"
+            className="mt-2 rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2.5 text-center text-sm font-medium text-accent-bright transition hover:bg-violet-500/20 hover:text-ink"
           >
             Hire me
           </a>

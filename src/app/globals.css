@@ -1,18 +1,134 @@
 @import "tailwindcss";
 
+@property --skill-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 @theme inline {
   --font-sans: var(--font-inter);
   --font-display: var(--font-space-grotesk);
   --font-mono: var(--font-jetbrains-mono);
+
+  /* ── Semantic theme colors ─────────────────────────────────
+     Values live in :root / html.light below, so swapping the
+     theme only swaps variables — every utility keeps its name. */
+  --color-base: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-glass: var(--surface-glass);
+  --color-navbar: var(--navbar);
+  --color-menu: var(--menu);
+  --color-ink: var(--text-ink);
+  --color-ink-soft: var(--text-soft);
+  --color-ink-mid: var(--text-mid);
+  --color-ink-muted: var(--text-muted);
+  --color-ink-faint: var(--text-faint);
+  --color-line-soft: var(--line-soft);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-overlay-soft: var(--overlay-soft);
+  --color-overlay: var(--overlay);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-info: var(--info);
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
+html .light-theme-icon {
+  display: none;
+}
 
+html.light .dark-theme-icon {
+  display: none;
+}
+
+html.light .light-theme-icon {
+  display: block;
+}
+/* Dark theme (default — unchanged) */
 :root {
   color-scheme: dark;
   --bg: #05060d;
   --surface: #0b0d1a;
+  --surface-glass: rgb(11 13 26 / 0.9);
+  --navbar: rgb(5 6 13 / 0.85);
+  --menu: rgb(5 6 13 / 0.95);
+  --text-ink: #fafafa;
+  --text-soft: #d4d4d8;
+  --text-mid: #a1a1aa;
+  --text-muted: #71717a;
+  --text-faint: #52525b;
+  --line-soft: rgb(255 255 255 / 0.05);
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.1);
+  --overlay-soft: rgb(255 255 255 / 0.03);
+  --overlay: rgb(255 255 255 / 0.05);
+  --overlay-hover: rgb(255 255 255 / 0.06);
   --accent: #a78bfa;
+  --accent-bright: #c4b5fd;
+  --info: #7dd3fc;
+  --chip-border: rgb(255 255 255 / 0.09);
+  --chip-bg: rgb(255 255 255 / 0.04);
+  --chip-text: #b4b8cc;
+  --card-border: rgb(255 255 255 / 0.08);
+  --card-bg: rgb(255 255 255 / 0.03);
+  --grid: rgb(255 255 255 / 0.035);
+  --scroll-thumb: rgb(255 255 255 / 0.1);
+  --scroll-thumb-hover: rgb(255 255 255 / 0.18);
+  --btn-ghost-text: #d3d6e6;
+  --btn-ghost-hover-text: #fff;
+  --body-bg: var(--bg);
+  --body-text: #e2e4f0;
+  --grad-a: #a78bfa;
+  --grad-b: #e879f9;
+  --grad-c: #38bdf8;
+  --run-1: #a78bfa;
+  --run-2: #e879f9;
+  --run-3: #38bdf8;
+}
+
+/* Light theme — soft white → royal purple, lavender grid */
+html.light {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-glass: rgb(255 255 255 / 0.85);
+  --navbar: rgb(255 255 255 / 0.8);
+  --menu: rgb(255 255 255 / 0.94);
+  --text-ink: #211a2e;
+  --text-soft: #39314d;
+  --text-mid: #575068;
+  --text-muted: #6b647f;
+  --text-faint: #948ea4;
+  --line-soft: #ece6f5;
+  --line: #ddd4eb;
+  --line-strong: #cfc5e6;
+  --overlay-soft: #f7f4fc;
+  --overlay: #f1ecfa;
+  --overlay-hover: #e9e2f7;
+  --accent: #6d28d9;
+  --accent-bright: #6d28d9;
+  --info: #0369a1;
+  --chip-border: #ddd4eb;
+  --chip-bg: #f6f2fc;
+  --chip-text: #5d5470;
+  --card-border: #e3daf0;
+  --card-bg: #ffffff;
+  --grid: #ddd4eb;
+  --scroll-thumb: #ddd4eb;
+  --scroll-thumb-hover: #c8badf;
+  --btn-ghost-text: #39314d;
+  --btn-ghost-hover-text: #211a2e;
+  --body-bg: linear-gradient(180deg, #ffffff 0%, #f3eeff 42%, #ede5ff 100%)
+    fixed;
+  --body-text: #39314d;
+  --grad-a: #6d28d9;
+  --grad-b: #a855f7;
+  --grad-c: #7c3aed;
+  --run-1: #6d28d9;
+  --run-2: #a855f7;
+  --run-3: #d946ef;
 }
 
 html {
@@ -22,8 +138,8 @@ html {
 }
 
 body {
-  background: var(--bg);
-  color: #e2e4f0;
+  background: var(--body-bg);
+  color: var(--body-text);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -31,6 +147,10 @@ body {
 ::selection {
   background: rgb(139 92 246 / 0.35);
   color: #fff;
+}
+html.light ::selection {
+  background: rgb(109 40 217 / 0.18);
+  color: #211a2e;
 }
 
 ::-webkit-scrollbar {
@@ -41,12 +161,12 @@ body {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(255 255 255 / 0.1);
+  background: var(--scroll-thumb);
   border-radius: 8px;
   border: 2px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(255 255 255 / 0.18);
+  background: var(--scroll-thumb-hover);
 }
 
 /* ── Layout helper ────────────────────────────────────────── */
@@ -61,7 +181,12 @@ body {
 /* ── Decorative effects ───────────────────────────────────── */
 
 .text-gradient {
-  background-image: linear-gradient(98deg, #a78bfa 0%, #e879f9 45%, #38bdf8 100%);
+  background-image: linear-gradient(
+    98deg,
+    var(--grad-a) 0%,
+    var(--grad-b) 45%,
+    var(--grad-c) 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -69,22 +194,38 @@ body {
 
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
 /* fade the grid out towards the bottom */
 .bg-grid-fade {
-  -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, black 35%, transparent 100%);
-  mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, black 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 65% at 50% 0%,
+    black 35%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 65% at 50% 0%,
+    black 35%,
+    transparent 100%
+  );
+}
+
+/* Logo is black-on-transparent — inverted for the dark theme only */
+.logo-mark {
+  filter: invert(1);
+}
+html.light .logo-mark {
+  filter: none;
 }
 
 /* ── Shared components ────────────────────────────────────── */
 
 .card {
-  border: 1px solid rgb(255 255 255 / 0.08);
-  background: rgb(255 255 255 / 0.03);
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
   border-radius: 1rem;
   padding: 1.75rem;
 }
@@ -92,12 +233,12 @@ body {
 .chip {
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgb(255 255 255 / 0.09);
-  background: rgb(255 255 255 / 0.04);
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
   border-radius: 9999px;
   padding: 0.3rem 0.75rem;
   font-size: 0.8rem;
-  color: #b4b8cc;
+  color: var(--chip-text);
   white-space: nowrap;
 }
 
@@ -112,7 +253,10 @@ body {
   color: #fff;
   background: linear-gradient(115deg, #6d5ce7 0%, #a855f7 55%, #7c6bf0 100%);
   box-shadow: 0 8px 24px -8px rgb(126 87 240 / 0.5);
-  transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .btn-primary:hover {
   filter: brightness(1.12);
@@ -128,17 +272,67 @@ body {
   padding: 0.7rem 1.5rem;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #d3d6e6;
-  border: 1px solid rgb(255 255 255 / 0.12);
-  background: rgb(255 255 255 / 0.03);
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease,
+  color: var(--btn-ghost-text);
+  border: 1px solid var(--line-strong);
+  background: var(--overlay-soft);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
     transform 0.2s ease;
 }
 .btn-ghost:hover {
   border-color: rgb(167 139 250 / 0.45);
-  background: rgb(255 255 255 / 0.06);
-  color: #fff;
+  background: var(--overlay-hover);
+  color: var(--btn-ghost-hover-text);
   transform: translateY(-1px);
+}
+
+/* ── Skills: running colour ring on the cards ─────────────── */
+
+.skill-card {
+  position: relative;
+}
+
+.skill-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  border-radius: 1rem;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--skill-angle),
+    transparent 0%,
+    var(--run-1) 12%,
+    var(--run-2) 24%,
+    var(--run-3) 36%,
+    transparent 48%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: skill-spin 5s linear infinite;
+  pointer-events: none;
+}
+
+/* desynchronise each card so the ring appears to travel across the grid */
+.grid > *:nth-child(2) .skill-card::before {
+  animation-delay: -1.7s;
+}
+.grid > *:nth-child(3) .skill-card::before {
+  animation-delay: -3.4s;
+}
+
+@keyframes skill-spin {
+  to {
+    --skill-angle: 360deg;
+  }
 }
 
 /* ── Custom cursor (desktop fine pointers only) ───────────── */
@@ -188,7 +382,8 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
@@ -224,6 +419,9 @@ body {
   }
   .animate-float,
   .animate-float-delayed {
+    animation: none;
+  }
+  .skill-card::before {
     animation: none;
   }
 }
