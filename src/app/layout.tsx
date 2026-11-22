@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { siteConfig } from "@/data/portfolio";
 import { Cursor } from "@/components/Cursor";
+import { IntroAnimation } from "@/components/IntroAnimation";
 import "./globals.css";
 
 const inter = Inter({
@@ -70,10 +71,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.classList.add("light")}catch(e){}})();`,
           }}
         />
+        {/* Session intro: paint a static charcoal cover before first paint so
+            the homepage never flashes before the overlay takes over */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(sessionStorage.getItem("intro-seen"))return;if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;document.documentElement.classList.add("intro-pending")}catch(e){}})();`,
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col">
         {children}
         <Cursor />
+        <IntroAnimation />
       </body>
     </html>
   );

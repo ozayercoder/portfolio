@@ -408,6 +408,227 @@ html.light .logo-mark {
   animation: float 6s ease-in-out -3s infinite;
 }
 
+/* ── Intro: cinematic logo reveal (once per session) ──────── */
+
+/* Static charcoal cover painted by the inline pre-paint script in the
+   root layout, before React hydrates. The overlay takes over from it. */
+html.intro-pending::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #05060d;
+  /* failsafe — never trap the page behind the cover if JS never runs */
+  animation: intro-cover-failsafe 0s linear 4s forwards;
+}
+
+@keyframes intro-cover-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* lock page scroll while the intro is active (removed on finish/unmount) */
+html.intro-lock,
+html.intro-lock body {
+  overflow: hidden;
+}
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background-color: #05060d;
+  /* barely-there grid — same 56px rhythm as the site, theme-independent */
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  /* 0–400ms fade in · hold · 1500–2200ms cinematic exit */
+  animation: intro-overlay 2.2s ease-in-out both;
+}
+
+@keyframes intro-overlay {
+  0% {
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  68% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.intro-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+/* ambient purple glow behind the logo — opacity/scale only, no blur */
+.intro-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(340px, 78vw, 620px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgb(139 92 246 / 0.2) 0%,
+    rgb(139 92 246 / 0.07) 38%,
+    transparent 70%
+  );
+  opacity: 0;
+  animation: intro-halo 2.2s ease-out both;
+}
+
+@keyframes intro-halo {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+  18% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  45% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  68% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  90% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+/* concentric rings — understated, slow, fade in from 1000ms */
+.intro-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  border: 1px solid rgb(196 181 253 / 0.14);
+  opacity: 0;
+  animation:
+    intro-ring-in 0.55s ease-out 1s both,
+    intro-ring-spin 16s linear 1s infinite;
+}
+
+.intro-ring-inner {
+  width: clamp(220px, 50vw, 370px);
+  aspect-ratio: 1;
+  /* a brighter arc segment makes the slow rotation readable */
+  border-top-color: rgb(139 92 246 / 0.5);
+}
+
+.intro-ring-outer {
+  width: clamp(290px, 66vw, 490px);
+  aspect-ratio: 1;
+  border-style: dashed;
+  border-color: rgb(196 181 253 / 0.12);
+  animation-delay: 1.15s, 1.15s;
+}
+
+@keyframes intro-ring-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-ring-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* The logo: the alpha channel of the existing logo PNG (identical bytes
+   to favicon.ico) stencils a royal-purple → lavender gradient. Geometry,
+   proportions and transparency come straight from the original asset —
+   no filters, no redrawn paths. */
+.intro-logo {
+  position: relative;
+  z-index: 1;
+  width: clamp(148px, 34vw, 240px);
+  aspect-ratio: 502 / 497;
+  background: linear-gradient(135deg, #8b5cf6 0%, #c4b5fd 55%, #ddd6fe 100%);
+  -webkit-mask: url("../assets/Ozayer-removebg-preview.png") center / contain
+    no-repeat;
+  mask: url("../assets/Ozayer-removebg-preview.png") center / contain no-repeat;
+  /* 400–1000ms: fade + settle from 92% + top-down reveal wipe */
+  animation: intro-logo 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+@keyframes intro-logo {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* light sweep across the logo — lives inside the masked element, so it
+   is automatically clipped to the logo's shape */
+.intro-sweep {
+  position: absolute;
+  top: -10%;
+  left: -50%;
+  width: 50%;
+  height: 120%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(255 255 255 / 0.55) 50%,
+    transparent 100%
+  );
+  transform: translateX(-120%) skewX(-16deg);
+  opacity: 0;
+  animation: intro-sweep 0.55s ease-in-out 0.9s both;
+}
+
+@keyframes intro-sweep {
+  0% {
+    transform: translateX(-40%) skewX(-16deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(320%) skewX(-16deg);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -423,5 +644,17 @@ html.light .logo-mark {
   }
   .skill-card::before {
     animation: none;
+  }
+  /* The intro is skipped in JS under reduced motion; if it ever renders
+     anyway, show a single static frame of the logo — no motion. */
+  .intro-overlay,
+  .intro-halo,
+  .intro-ring,
+  .intro-logo,
+  .intro-sweep {
+    animation: none;
+  }
+  .intro-overlay {
+    opacity: 1;
   }
 }
