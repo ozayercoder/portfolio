@@ -418,8 +418,10 @@ html.intro-pending::before {
   inset: 0;
   z-index: 10000;
   background: #05060d;
-  /* failsafe — never trap the page behind the cover if JS never runs */
-  animation: intro-cover-failsafe 0s linear 4s forwards;
+  /* failsafe — never trap the page behind the cover if JS never runs.
+     6s > the 3.5s intro + hydration slack, so a slow first load never
+     reveals the site before the overlay takes over. */
+  animation: intro-cover-failsafe 0s linear 6s forwards;
 }
 
 @keyframes intro-cover-failsafe {
@@ -447,18 +449,18 @@ html.intro-lock body {
     linear-gradient(to right, rgb(255 255 255 / 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(255 255 255 / 0.03) 1px, transparent 1px);
   background-size: 56px 56px;
-  /* 0–400ms fade in · hold · 1500–2200ms cinematic exit */
-  animation: intro-overlay 2.2s ease-in-out both;
+  /* 0–455ms fade in · hold · 2240–3500ms cinematic exit */
+  animation: intro-overlay 3.5s ease-in-out both;
 }
 
 @keyframes intro-overlay {
   0% {
     opacity: 0;
   }
-  18% {
+  13% {
     opacity: 1;
   }
-  68% {
+  64% {
     opacity: 1;
   }
   100% {
@@ -487,7 +489,7 @@ html.intro-lock body {
     transparent 70%
   );
   opacity: 0;
-  animation: intro-halo 2.2s ease-out both;
+  animation: intro-halo 3.5s ease-out both;
 }
 
 @keyframes intro-halo {
@@ -517,7 +519,7 @@ html.intro-lock body {
   }
 }
 
-/* concentric rings — understated, slow, fade in from 1000ms */
+/* concentric rings — understated, slow, fade in from 1250ms */
 .intro-ring {
   position: absolute;
   left: 50%;
@@ -526,8 +528,8 @@ html.intro-lock body {
   border: 1px solid rgb(196 181 253 / 0.14);
   opacity: 0;
   animation:
-    intro-ring-in 0.55s ease-out 1s both,
-    intro-ring-spin 16s linear 1s infinite;
+    intro-ring-in 0.6s ease-out 1.25s both,
+    intro-ring-spin 16s linear 1.25s infinite;
 }
 
 .intro-ring-inner {
@@ -542,7 +544,7 @@ html.intro-lock body {
   aspect-ratio: 1;
   border-style: dashed;
   border-color: rgb(196 181 253 / 0.12);
-  animation-delay: 1.15s, 1.15s;
+  animation-delay: 1.4s, 1.4s;
 }
 
 @keyframes intro-ring-in {
@@ -576,8 +578,8 @@ html.intro-lock body {
   -webkit-mask: url("../assets/Ozayer-removebg-preview.png") center / contain
     no-repeat;
   mask: url("../assets/Ozayer-removebg-preview.png") center / contain no-repeat;
-  /* 400–1000ms: fade + settle from 92% + top-down reveal wipe */
-  animation: intro-logo 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  /* 500–1250ms: fade + settle from 92% + top-down reveal wipe */
+  animation: intro-logo 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
 }
 
 @keyframes intro-logo {
@@ -609,7 +611,7 @@ html.intro-lock body {
   );
   transform: translateX(-120%) skewX(-16deg);
   opacity: 0;
-  animation: intro-sweep 0.55s ease-in-out 0.9s both;
+  animation: intro-sweep 0.6s ease-in-out 1.1s both;
 }
 
 @keyframes intro-sweep {
