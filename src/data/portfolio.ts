@@ -234,4 +234,15 @@ export const experience: ExperienceItem[] = [
     ],
     tags: ["Science", "Physics", "Chemistry", "Higher Mathematics", "ICT"],
   },
+  {
+    type: "education",
+    period: "2023 — 2025",
+    role: "Secondary School Certificate (SSC)",
+    org: "Cumilla High School, Cumilla",
+    points: [
+      "Studied Science with a focus on Physics, Chemistry, Higher Mathematics, Biology, and ICT.",
+      "built a strong foundation in analytical thinking, problem-solving, and technology.",
+    ],
+    tags: ["Science"],
+  },
 ];
